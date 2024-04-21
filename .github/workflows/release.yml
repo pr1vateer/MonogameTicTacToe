@@ -36,4 +36,4 @@ jobs:
       with:
         artifacts: "MonogameTicTacToe_Win.zip,MonogameTicTacToe_Linux.zip"
         body: "Please enjoy new release"
-        allowUpdates:
+        allowUpdates: true
