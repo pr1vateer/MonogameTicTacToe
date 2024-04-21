@@ -24,14 +24,10 @@ jobs:
     - name: Zip
       run: |
             cp -r bin/Release/net6.0/win-x64/publish/ .
-            zip -r release.zip publish/
-            md5sum release.zip
+            zip -r MonogameTicTacToe_Win.zip publish/
+            md5sum MonogameTicTacToe_Win.zip
     - name: Upload binaries to release
-      uses: svenstaro/upload-release-action@v2
+      uses: ncipollo/release-action@v1
       with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: release.zip
-        asset_name: MonogameBouncingBall.zip
-        tag: ${{ github.ref }}
-        overwrite: true
-        body: "Please enjoy release ${{ steps.set_env.outputs.RELEASE_VERSION }}"
+        artifacts: "MonogameTicTacToe_Win.zip"
+        body: "Please enjoy new release"
