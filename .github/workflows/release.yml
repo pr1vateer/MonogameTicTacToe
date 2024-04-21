@@ -19,16 +19,21 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 6.0.x
-    - name: Publish
+    - name: Publish Win_x64
       run: dotnet publish -c Release -r win-x64 /p:PublishReadyToRun=false /p:TieredCompilation=false --self-contained
+    - name: Publish Linux_x64
+      run: dotnet publish -c Release -r linux-x64 /p:PublishReadyToRun=false /p:TieredCompilation=false --self-contained
     - name: Zip
       run: |
             cp -r bin/Release/net6.0/win-x64/publish/ .
             zip -r MonogameTicTacToe_Win.zip publish/
+            cp -r bin/Release/net6.0/linux-x64/publish/ .
+            zip -r MonogameTicTacToe_Linux.zip publish/
             md5sum MonogameTicTacToe_Win.zip
+            md5sum MonogameTicTacToe_Linux.zip
     - name: Upload binaries to release
       uses: ncipollo/release-action@v1
       with:
-        artifacts: "MonogameTicTacToe_Win.zip"
+        artifacts: "MonogameTicTacToe_Win.zip,MonogameTicTacToe_Linux.zip"
         body: "Please enjoy new release"
-        allowUpdates: true
+        allowUpdates:
